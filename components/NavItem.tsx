@@ -1,13 +1,16 @@
 import React from 'react'
 import {sidebarItems} from "~/constants"
-import { Link ,NavLink} from 'react-router'
+import { Link ,NavLink, useLoaderData, useNavigate} from 'react-router'
 import {cn} from "~/lib/utils";
+import { logoutUser } from '~/appwrite/auth';
 
 const NavItem = ({ handleClick }: { handleClick?: () => void}) => {
-    const user = {
-        name:'Vipul',
-        email:"vipul@gmai.com",
-        imageUrl:'/assets/images/david.webp'
+    const user = useLoaderData();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        await logoutUser();
+        navigate('/sign-in')
     }
   return (
     <section className="nav-items">
@@ -44,7 +47,7 @@ const NavItem = ({ handleClick }: { handleClick?: () => void}) => {
                     </article>
 
                     <button
-                       // onClick={handleLogout}
+                        onClick={handleLogout}
                         className="cursor-pointer"
                     >
                         <img
