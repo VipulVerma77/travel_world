@@ -8,10 +8,12 @@ import { getExistingUser, storeUserData } from '~/appwrite/auth';
 export async function clientLoader() {
     try {
         const user = await account.get();
+        console.log(user)
 
         if(!user.$id) return redirect('/sign-in');
 
         const existingUser = await getExistingUser(user.$id);
+        console.log(existingUser)
 
         if(existingUser?.status === 'user') {
             return redirect('/dashboard');
